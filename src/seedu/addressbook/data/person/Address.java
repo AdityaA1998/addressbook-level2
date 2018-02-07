@@ -1,5 +1,6 @@
 package seedu.addressbook.data.person;
 
+import javafx.geometry.Pos;
 import seedu.addressbook.data.exception.IllegalValueException;
 
 /**
@@ -8,8 +9,8 @@ import seedu.addressbook.data.exception.IllegalValueException;
  */
 public class Address {
 
-    public static final String EXAMPLE = "123, some street";
-    public static final String MESSAGE_ADDRESS_CONSTRAINTS = "Person addresses can be in any format";
+    public static final String EXAMPLE = "a/123, Clementi Ave 3, #12-34, 231534";
+    public static final String MESSAGE_ADDRESS_CONSTRAINTS = "a/BLOCK, STREET, UNIT, POSTAL_CODE";
     public static final String ADDRESS_VALIDATION_REGEX = ".+";
 
     public final String value;
@@ -27,6 +28,7 @@ public class Address {
             throw new IllegalValueException(MESSAGE_ADDRESS_CONSTRAINTS);
         }
         this.value = trimmedAddress;
+        splitAddress(address);
     }
 
     /**
@@ -36,6 +38,22 @@ public class Address {
         return test.matches(ADDRESS_VALIDATION_REGEX);
     }
 
+    /**
+     * Void function that splits the address into block, street, postal code, email
+     */
+    
+    private void splitAddress(String addressInput) throws IllegalValueException {
+        String differentAddressParts[] = addressInput.split(", ");
+        
+        if(differentAddressParts.length != 4)
+            throw new IllegalValueException(MESSAGE_ADDRESS_CONSTRAINTS);
+        
+        Block block = new Block(differentAddressParts[0]);
+        Street street = new Street(differentAddressParts[1]);
+        Unit email = new Unit(differentAddressParts[2]);
+        PostalCode postalCode = new PostalCode(differentAddressParts[3]);
+    } 
+    
     @Override
     public String toString() {
         return value;
