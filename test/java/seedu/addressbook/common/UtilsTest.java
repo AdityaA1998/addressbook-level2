@@ -36,21 +36,10 @@ public class UtilsTest {
     }
 
     @Test
-    public void elementsAreNull() throws Exception {
-        // empty list
-        assertNoNullObject();
-
-        // few null objects
-        assertFewNullObject((Object) null);
-        assertFewNullObject(1, null, 2);
-        assertFewNullObject("", "Adi", "csaca",null);
-        assertFewNullObject("abc", null);
-
-        // no null objects
-        assertNoNullObject("abc", "abc");
-        assertNoNullObject("abc", "", "abc", "ABC");
-        assertNoNullObject("", "abc", "a", "abc");
-        //assertNoNullObject(1, new Integer(1));
+    public void isAnyNull() throws Exception {
+        isAnyNull_EmptyList_returnsFalse();
+        isAnyNull_NoNull_returnsFalse();
+        isAnyNull_FewNull_returnsTrue();
     }
 
     private void assertAreUnique(Object... objects) {
@@ -61,12 +50,33 @@ public class UtilsTest {
         assertFalse(Utils.elementsAreUnique(Arrays.asList(objects)));
     }
     
-    private void assertNoNullObject(Object... objects) {
-        assertFalse(Utils.isAnyNull(objects));
+    
+    private void isAnyNull_EmptyList_returnsFalse() {
+        // empty list
+        assertNoNullObject();
+    }
+
+    private void isAnyNull_NoNull_returnsFalse() {
+        // no null objects
+        assertNoNullObject("abc", "abc");
+        assertNoNullObject("abc", "", "abc", "ABC");
+        assertNoNullObject("", "abc", "a", "abc");
+    }
+
+    private void isAnyNull_FewNull_returnsTrue() {
+        // few null objects
+        assertFewNullObject((Object) null);
+        assertFewNullObject(1, null, 2);
+        assertFewNullObject("", "Adi", "csaca",null);
+        assertFewNullObject("abc", null);
     }
     
     private void assertFewNullObject(Object... objects) {
         assertTrue(Utils.isAnyNull(objects));
+    }
+
+    private void assertNoNullObject(Object... objects) {
+        assertFalse(Utils.isAnyNull(objects));
     }
     
 }
