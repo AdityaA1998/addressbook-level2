@@ -18,7 +18,7 @@ public class ExitCommand extends Command {
         for(Tagging tagging: addressBook.tagging) {
             listOfTags.append(tagging.toString() + "\n");
         }
-        return new CommandResult(listOfTags + MESSAGE_EXIT_ACKNOWEDGEMENT + "WALAO");
+        return new CommandResult(listOfTags + MESSAGE_EXIT_ACKNOWEDGEMENT);
     }
 
     public static boolean isExit(Command command) {
